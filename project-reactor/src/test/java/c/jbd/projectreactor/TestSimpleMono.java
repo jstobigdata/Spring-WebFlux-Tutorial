@@ -47,7 +47,6 @@ public class TestSimpleMono {
   public void noSignalMono() {
     //Mono that never returns a value
     Mono<String> noSignal$ = Mono.never();
-    //Can not use - Mono.never().log()
 
     noSignal$.subscribe(val -> {
       System.out.println("==== Value ====" + val);
@@ -79,6 +78,6 @@ public class TestSimpleMono {
     filteredMono$.subscribe(System.out::println);
 
     StepVerifier.create(filteredMono$)
-        .expectComplete();
+        .verifyComplete();
   }
 }
