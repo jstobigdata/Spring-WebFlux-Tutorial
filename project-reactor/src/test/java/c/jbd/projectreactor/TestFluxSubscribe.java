@@ -35,10 +35,10 @@ public class TestFluxSubscribe {
     });
 
     StepVerifier.create(messages$)
-        .expectNext("Welcome")
-        .expectNext("to")
-        .expectNext("Jstobigdata")
-        .verifyComplete();
+      .expectNext("Welcome")
+      .expectNext("to")
+      .expectNext("Jstobigdata")
+      .verifyComplete();
   }
 
   @Test
@@ -46,21 +46,21 @@ public class TestFluxSubscribe {
     Flux<String> messages$ = Flux.just("Welcome", "to", "Jstobigdata").log();
 
     messages$.subscribe(
-        msg -> {
-          System.out.println(msg);
-        },
-        err -> {
-          err.printStackTrace();
-        },
-        () -> {
-          System.out.println("===== Execution completed =====");
-        });
+      msg -> {
+        System.out.println(msg);
+      },
+      err -> {
+        err.printStackTrace();
+      },
+      () -> {
+        System.out.println("===== Execution completed =====");
+      });
 
     StepVerifier.create(messages$)
-        .expectNext("Welcome")
-        .expectNext("to")
-        .expectNext("Jstobigdata")
-        .verifyComplete();
+      .expectNext("Welcome")
+      .expectNext("to")
+      .expectNext("Jstobigdata")
+      .verifyComplete();
   }
 
 
@@ -69,18 +69,18 @@ public class TestFluxSubscribe {
     Flux<String> messages$ = Flux.error(new RuntimeException());
 
     messages$.subscribe(
-        msg -> {
-          System.out.println(msg);
-        },
-        err -> {
-          err.printStackTrace();
-        },
-        () -> {
-          System.out.println("===== Execution completed =====");
-        });
+      msg -> {
+        System.out.println(msg);
+      },
+      err -> {
+        err.printStackTrace();
+      },
+      () -> {
+        System.out.println("===== Execution completed =====");
+      });
 
     StepVerifier.create(messages$)
-        .expectError(RuntimeException.class)
-        .verify();
+      .expectError(RuntimeException.class)
+      .verify();
   }
 }

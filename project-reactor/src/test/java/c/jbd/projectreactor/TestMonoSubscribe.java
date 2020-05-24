@@ -14,7 +14,7 @@ public class TestMonoSubscribe {
   @Test
   public void subscribeMono() {
     Mono<String> message$ = Mono.just("Welcome to Jstobigdata")
-        .map(msg -> msg.concat(".com")).log();
+      .map(msg -> msg.concat(".com")).log();
 
     message$.subscribe(new Subscriber<String>() {
       @Override
@@ -39,8 +39,8 @@ public class TestMonoSubscribe {
     });
 
     StepVerifier.create(message$)
-        .expectNext("Welcome to Jstobigdata.com")
-        .verifyComplete();
+      .expectNext("Welcome to Jstobigdata.com")
+      .verifyComplete();
   }
 
   /**
@@ -49,23 +49,23 @@ public class TestMonoSubscribe {
   @Test
   public void subscribeMono2() {
     Mono<String> message$ = Mono.just("Welcome to Jstobigdata")
-        .map(msg -> msg.concat(".com")).log();
+      .map(msg -> msg.concat(".com")).log();
 
     message$.subscribe(
-        value -> {
-          System.out.println(value);
-        },
-        err -> {
-          err.printStackTrace();
-        },
-        () -> {
-          System.out.println("===== Execution completed =====");
-        });
+      value -> {
+        System.out.println(value);
+      },
+      err -> {
+        err.printStackTrace();
+      },
+      () -> {
+        System.out.println("===== Execution completed =====");
+      });
 
     StepVerifier.create(message$)
-        .expectNext("Welcome to Jstobigdata.com")
-        .expectNextCount(0) //no next element
-        .verifyComplete();
+      .expectNext("Welcome to Jstobigdata.com")
+      .expectNextCount(0) //no next element
+      .verifyComplete();
   }
 
   /**
@@ -76,18 +76,18 @@ public class TestMonoSubscribe {
     Mono<String> message$ = Mono.error(new RuntimeException("Check error mono"));
 
     message$.subscribe(
-        value -> {
-          System.out.println(value);
-        },
-        err -> {
-          err.printStackTrace();
-        },
-        () -> {
-          System.out.println("===== Execution completed =====");
-        });
+      value -> {
+        System.out.println(value);
+      },
+      err -> {
+        err.printStackTrace();
+      },
+      () -> {
+        System.out.println("===== Execution completed =====");
+      });
 
     StepVerifier.create(message$)
-        .expectError(RuntimeException.class)
-        .verify();
+      .expectError(RuntimeException.class)
+      .verify();
   }
 }

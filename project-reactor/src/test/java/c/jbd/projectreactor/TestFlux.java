@@ -21,9 +21,9 @@ public class TestFlux {
     simpleFlux$.subscribe(val -> System.out.println(val));
 
     StepVerifier.create(simpleFlux$)
-        .expectNext("hello")
-        .expectNext("there")
-        .verifyComplete();
+      .expectNext("hello")
+      .expectNext("there")
+      .verifyComplete();
   }
 
   /**
@@ -33,19 +33,19 @@ public class TestFlux {
   public void emptyFlux() {
     Flux emptyFlux$ = Flux.empty().log();
     emptyFlux$.subscribe(
-        val -> {
-          System.out.println("=== Never called ===");
-        },
-        error -> {
-          //Error
-        },
-        () -> {
-          System.out.println("==== Completed ===");
-        });
+      val -> {
+        System.out.println("=== Never called ===");
+      },
+      error -> {
+        //Error
+      },
+      () -> {
+        System.out.println("==== Completed ===");
+      });
 
     StepVerifier.create(emptyFlux$)
-        .expectNextCount(0)
-        .verifyComplete();
+      .expectNextCount(0)
+      .verifyComplete();
   }
 
   /**
@@ -56,30 +56,30 @@ public class TestFlux {
     Flux neverFlux = Flux.never().log();
 
     StepVerifier
-        .create(neverFlux)
-        .expectTimeout(Duration.ofSeconds(2))
-        .verify();
+      .create(neverFlux)
+      .expectTimeout(Duration.ofSeconds(2))
+      .verify();
   }
 
   @Test
   public void handleError() {
     Flux<String> names$ = Flux.just("Tom", "Jerry")
-        .concatWith(Flux.error(new RuntimeException("Exception occurred..!")))
-        .concatWith(Flux.just("John"));
+      .concatWith(Flux.error(new RuntimeException("Exception occurred..!")))
+      .concatWith(Flux.just("John"));
 
     names$.subscribe(
-        name -> {
-          System.out.println(name);
-        }, err -> {
-          err.printStackTrace();
-        }
+      name -> {
+        System.out.println(name);
+      }, err -> {
+        err.printStackTrace();
+      }
     );
 
     StepVerifier.create(names$)
-        .expectNext("Tom")
-        .expectNext("Jerry")
-        .expectError(RuntimeException.class)
-        .verify();
+      .expectNext("Tom")
+      .expectNext("Jerry")
+      .expectError(RuntimeException.class)
+      .verify();
   }
 
   /**
@@ -88,69 +88,69 @@ public class TestFlux {
   @Test
   public void rangeFlux() {
     Flux<Integer> range$ = Flux.range(10, 10)
-        .filter(num -> Math.floorMod(num, 2) == 1)
-        .log();
+      .filter(num -> Math.floorMod(num, 2) == 1)
+      .log();
 
     range$.subscribe(System.out::println);
 
     StepVerifier.create(range$)
-        //.expectNextCount(5)
-        .expectNext(11, 13, 15, 17, 19)
-        .verifyComplete();
+      //.expectNextCount(5)
+      .expectNext(11, 13, 15, 17, 19)
+      .verifyComplete();
   }
 
   /**
    * Transform using the map
    */
-@Test
-public void transformUsingMap() {
-  List<Person> list = new ArrayList<>();
-  list.add(new Person("John", "john@gmail.com", "12345678"));
-  list.add(new Person("Jack", "jack@gmail.com", "12345678"));
-  Flux<Person> people$ = Flux.fromIterable(list)
+  @Test
+  public void transformUsingMap() {
+    List<Person> list = new ArrayList<>();
+    list.add(new Person("John", "john@gmail.com", "12345678"));
+    list.add(new Person("Jack", "jack@gmail.com", "12345678"));
+    Flux<Person> people$ = Flux.fromIterable(list)
       .map(p -> {
         return new Person(p.getName().toUpperCase(),
-            p.getEmail().toUpperCase(), p.getPhone().toUpperCase());
+          p.getEmail().toUpperCase(), p.getPhone().toUpperCase());
       })
       .log();
 
-  people$.subscribe(System.out::println);
+    people$.subscribe(System.out::println);
 
-  StepVerifier.create(people$)
+    StepVerifier.create(people$)
       .expectNext(new Person("JOHN", "JOHN@GMAIL.COM", "12345678"))
       .expectNextCount(1)
       .verifyComplete();
-}
+  }
 
   /**
    * Transform using the FlatMap
    */
-@Test
-public void transformUsingFlatMap() {
-  List<Person> list = new ArrayList<>();
-  list.add(new Person("John", "john@gmail.com", "12345678"));
-  list.add(new Person("Jack", "jack@gmail.com", "12345678"));
-  Flux<Person> people$ = Flux.fromIterable(list)
+  @Test
+  public void transformUsingFlatMap() {
+    List<Person> list = new ArrayList<>();
+    list.add(new Person("John", "john@gmail.com", "12345678"));
+    list.add(new Person("Jack", "jack@gmail.com", "12345678"));
+    Flux<Person> people$ = Flux.fromIterable(list)
       .flatMap(person -> {
         return asyncCapitalize(person);
       })
       .log();
 
-  people$.subscribe(System.out::println);
+    people$.subscribe(System.out::println);
 
-  StepVerifier.create(people$)
+    StepVerifier.create(people$)
       .expectNext(new Person("JOHN", "JOHN@GMAIL.COM", "12345678"))
       .expectNext(new Person("JACK", "JACK@GMAIL.COM", "12345678"))
       .verifyComplete();
-}
+  }
 
-//Used in asynchronously process the Person
-Mono<Person> asyncCapitalize(Person person) {
-  Person p = new Person(person.getName().toUpperCase(),
+  //Used in asynchronously process the Person
+  Mono<Person> asyncCapitalize(Person person) {
+    Person p = new Person(person.getName().toUpperCase(),
       person.getEmail().toUpperCase(), person.getPhone().toUpperCase());
-  Mono<Person> person$ = Mono.just(p);
-  return person$;
-}
+    Mono<Person> person$ = Mono.just(p);
+    return person$;
+  }
 
 
 }

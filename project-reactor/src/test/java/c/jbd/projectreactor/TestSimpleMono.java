@@ -17,12 +17,12 @@ public class TestSimpleMono {
     //Create a Mono with a msg.
     //.map is an Operator to manipulate the string
     Mono<String> message$ = Mono.just("Welcome to Jstobigdata")
-        .map(msg -> msg.concat(".com")).log();
+      .map(msg -> msg.concat(".com")).log();
 
     message$.subscribe(System.out::println);
     StepVerifier.create(message$)
-        .expectNext("Welcome to Jstobigdata.com")
-        .verifyComplete();
+      .expectNext("Welcome to Jstobigdata.com")
+      .verifyComplete();
   }
 
   @Test
@@ -39,8 +39,8 @@ public class TestSimpleMono {
 
     //To Test
     StepVerifier.create(empty$)
-        .expectNextCount(0) //optional
-        .verifyComplete();
+      .expectNextCount(0) //optional
+      .verifyComplete();
   }
 
   @Test
@@ -53,8 +53,8 @@ public class TestSimpleMono {
     });
 
     StepVerifier.create(noSignal$)
-        .expectTimeout(Duration.ofSeconds(5))
-        .verify();
+      .expectTimeout(Duration.ofSeconds(5))
+      .verify();
   }
 
   @Test
@@ -64,8 +64,8 @@ public class TestSimpleMono {
     sMono$.subscribe(System.out::println);
 
     StepVerifier.create(sMono$)
-        .expectNext("Sample Message")
-        .verifyComplete();
+      .expectNext("Sample Message")
+      .verifyComplete();
   }
 
   @Test
@@ -73,11 +73,11 @@ public class TestSimpleMono {
     Supplier<String> stringSupplier = () -> "Hello World";
 
     Mono<String> filteredMono$ = Mono.fromSupplier(stringSupplier)
-        .filter(str -> str.length() > 5)
-        .log();
+      .filter(str -> str.length() > 5)
+      .log();
     filteredMono$.subscribe(System.out::println);
 
     StepVerifier.create(filteredMono$)
-        .verifyComplete();
+      .verifyComplete();
   }
 }
