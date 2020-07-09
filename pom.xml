@@ -16,8 +16,11 @@
 
   <modules>
     <module>project-reactor</module>
+    <module>webflux-00-controller-approach</module>
+    <module>webflux-01-functional-approach</module>
+    <module>webflux-03-mongo-rest-controller-approach</module>
+    <module>webflux-02-mongo-rest-functional-approach</module>
   </modules>
-
 
   <properties>
     <java.version>11</java.version>

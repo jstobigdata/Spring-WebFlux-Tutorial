@@ -68,3 +68,5 @@ hs_err_pid*
 
 #Auto-import
 *.iml
+/mongo-docker/.mongo-volume/
+/code_examples/

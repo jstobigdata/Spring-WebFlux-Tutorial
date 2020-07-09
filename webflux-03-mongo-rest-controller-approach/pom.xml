@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-     http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <parent>
     <artifactId>spring-webflux-tutorial</artifactId>
     <groupId>com.jstobigdata</groupId>
     <version>1.0-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>webflux-00-controller-approach</artifactId>
-  <description>Annotation approach WebFlux project in Spring boot</description>
+  <artifactId>webflux-03-mongo-rest-controller-approach</artifactId>
+  <packaging>jar</packaging>
+  <description>Build a Spring Webflux + MongoDB non blocking REST API using Controller approach</description>
 
   <dependencies>
     <dependency>

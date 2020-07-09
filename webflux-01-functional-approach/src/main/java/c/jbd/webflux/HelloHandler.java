@@ -10,7 +10,7 @@ import reactor.core.publisher.Mono;
 import java.time.Duration;
 
 @Component
-public class HelloHandlerFunction {
+public class HelloHandler {
   public Mono<ServerResponse> monoMessage(ServerRequest request) {
     return ServerResponse.ok()
       .contentType(MediaType.TEXT_PLAIN)
