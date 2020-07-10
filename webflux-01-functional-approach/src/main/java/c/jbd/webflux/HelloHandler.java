@@ -11,6 +11,12 @@ import java.time.Duration;
 
 @Component
 public class HelloHandler {
+  /**
+   * Serves a plain_text
+   *
+   * @param request
+   * @return
+   */
   public Mono<ServerResponse> monoMessage(ServerRequest request) {
     return ServerResponse.ok()
       .contentType(MediaType.TEXT_PLAIN)
@@ -19,6 +25,12 @@ public class HelloHandler {
       );
   }
 
+  /**
+   * Serves a JSON stream
+   *
+   * @param request
+   * @return
+   */
   public Mono<ServerResponse> fluxMessage(ServerRequest request) {
     return ServerResponse.ok()
       .contentType(MediaType.APPLICATION_STREAM_JSON)

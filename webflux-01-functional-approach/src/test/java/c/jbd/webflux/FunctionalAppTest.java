@@ -17,9 +17,8 @@ public class FunctionalAppTest {
 
   private final String TEST_MESSAGE = "Welcome to JstoBigdata.com";
 
-
   @Test
-  public void testMonoEndpoint(){
+  public void testMonoEndpoint() {
     Flux<String> msg$ = webTestClient.get()
       .uri("/functional/mono")
       .accept(MediaType.TEXT_PLAIN)
@@ -34,7 +33,7 @@ public class FunctionalAppTest {
   }
 
   @Test
-  public void testFluxEndpoint(){
+  public void testFluxEndpoint() {
     Flux<String> msg$ = webTestClient.get()
       .uri("/functional/flux")
       .accept(MediaType.APPLICATION_STREAM_JSON)
