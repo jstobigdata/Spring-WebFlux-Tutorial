@@ -9,7 +9,7 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <packaging>jar</packaging>
-  <artifactId>webflux-02-mongo-rest-functional-approach</artifactId>
+  <artifactId>webflux-02-mongo-rest-api</artifactId>
   <description>Build a Spring Webflux + MongoDB non blocking REST API using functional approach</description>
 
   <properties>
@@ -26,14 +26,18 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-data-mongodb-reactive</artifactId>
     </dependency>
+    <dependency>
+      <groupId>com.querydsl</groupId>
+      <artifactId>querydsl-apt</artifactId>
+      <version>4.1.4</version>
+    </dependency>
 
     <!--Swagger dependencies -->
-    <dependency>
+    <!--<dependency>
       <groupId>io.springfox</groupId>
       <artifactId>springfox-boot-starter</artifactId>
       <version>3.0.0</version>
-    </dependency>
-
+    </dependency>-->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>

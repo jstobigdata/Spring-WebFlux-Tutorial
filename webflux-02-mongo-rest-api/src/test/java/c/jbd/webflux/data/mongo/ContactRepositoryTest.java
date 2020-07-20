@@ -116,7 +116,7 @@ public class ContactRepositoryTest {
       .verifyComplete();
   }
 
-  //@AfterAll
+  @AfterAll
   public void clearData(){
     Mono<Void> deletedItems$ = contactRepository.deleteAll();
     StepVerifier.create(deletedItems$.log())
