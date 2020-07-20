@@ -10,6 +10,8 @@ import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
 
+import static org.springframework.web.reactive.function.BodyInserters.*;
+
 @Component
 public class ContactRestHandler {
   private final ContactRepository contactRepository;
@@ -25,12 +27,7 @@ public class ContactRestHandler {
     this.contactRepository = contactRepository;
   }
 
-  public Mono<ServerResponse> getAllContacts(ServerRequest request) {
-    return ServerResponse.ok()
-      .contentType(MediaType.APPLICATION_JSON)
-      .body(contactRepository.findAll(), Contact.class);
-  }
-
+  //GET - find a contact by id
   public Mono<ServerResponse> getById(ServerRequest request) {
     String id = request.pathVariable("id");
 
@@ -38,10 +35,18 @@ public class ContactRestHandler {
       .flatMap(contact ->
         ServerResponse.ok()
           .contentType(MediaType.APPLICATION_JSON)
-          .body(contact, Contact.class)
+          .body(fromValue(contact))
       ).switchIfEmpty(response404);
   }
 
+  //List all contacts
+  public Mono<ServerResponse> getAllContacts(ServerRequest request) {
+    return ServerResponse.ok()
+      .contentType(MediaType.APPLICATION_JSON)
+      .body(contactRepository.findAll(), Contact.class);
+  }
+
+  //Find a Contact by email address.
   public Mono<ServerResponse> getByEmail(ServerRequest request) {
     String email = request.pathVariable("email");
 
@@ -49,10 +54,11 @@ public class ContactRestHandler {
       .flatMap(contact ->
         ServerResponse.ok()
           .contentType(MediaType.APPLICATION_JSON)
-          .body(contact, Contact.class)
+          .body(fromValue(contact))
       ).switchIfEmpty(response404);
   }
 
+  //Save a new Contact
   public Mono<ServerResponse> insertContact(ServerRequest request) {
     Mono<Contact> unsavedContact = request.bodyToMono(Contact.class);
 
@@ -60,10 +66,11 @@ public class ContactRestHandler {
       .flatMap(contact -> contactRepository.save(contact)
         .flatMap(savedContact -> ServerResponse.accepted()
           .contentType(MediaType.APPLICATION_JSON)
-          .body(savedContact, Contact.class))
+          .body(fromValue(savedContact)))
       ).switchIfEmpty(response406);
   }
 
+  //Update an existing contact
   public Mono<ServerResponse> updateContact(ServerRequest request) {
     Mono<Contact> contact$ = request.bodyToMono(Contact.class);
     String id = request.pathVariable("id");
@@ -83,11 +90,12 @@ public class ContactRestHandler {
     return updatedContact$.flatMap(contact ->
       ServerResponse.accepted()
         .contentType(MediaType.APPLICATION_JSON)
-        .body(contact, Contact.class)
+        .body(fromValue(contact))
     ).switchIfEmpty(response404);
   }
 
-  public Mono<ServerResponse> deleteContact(ServerRequest request){
+  //Delete a Contact
+  public Mono<ServerResponse> deleteContact(ServerRequest request) {
     String id = request.pathVariable("id");
     Mono<Void> deleted = contactRepository.deleteById(id);
 

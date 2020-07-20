@@ -32,12 +32,6 @@
       <version>4.1.4</version>
     </dependency>
 
-    <!--Swagger dependencies -->
-    <!--<dependency>
-      <groupId>io.springfox</groupId>
-      <artifactId>springfox-boot-starter</artifactId>
-      <version>3.0.0</version>
-    </dependency>-->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
@@ -61,6 +55,13 @@
       <artifactId>spring-boot-devtools</artifactId>
       <optional>true</optional>
       <scope>runtime</scope>
+    </dependency>
+
+    <!--Swagger dependencies  - http://localhost:8083/swagger-ui/#/contact-controller -->
+    <dependency>
+      <groupId>io.springfox</groupId>
+      <artifactId>springfox-boot-starter</artifactId>
+      <version>3.0.0</version>
     </dependency>
   </dependencies>
 

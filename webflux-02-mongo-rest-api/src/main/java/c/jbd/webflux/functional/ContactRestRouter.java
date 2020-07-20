@@ -14,7 +14,7 @@ public class ContactRestRouter {
   @Bean
   public RouterFunction<ServerResponse> routeContact(ContactRestHandler contactRestHandler) {
     return RouterFunctions
-      .route(GET("/functional/contacts/")
+      .route(GET("/functional/contacts")
         , contactRestHandler::getAllContacts)
       .andRoute(GET("/functional/contacts/{id}")
         , contactRestHandler::getById)

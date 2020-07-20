@@ -17,14 +17,17 @@ server:
   port: 8083
 ---
 spring:
-  profiles: uat
+  profiles: unit_test
   data:
     mongodb:
       host: localhost
       port: 27017
-      database: local
+      database: spring_reactive_test
+      username: root
+      password: root@123
+      authentication-database: admin
 server:
-  port: 8080
+  port: 8083
 #---
 #spring:
 #  profiles: prod
