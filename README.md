@@ -25,5 +25,5 @@ Remember to run the `docker-compose up` from `./mongo-docker` directory.
 
 -----
 ## Spring Core Tutorial - separate repo
- [Check the Spring WebFlux repo](https://github.com/jstobigdata/Spring-Framework-Tutorial)
+ [Check the Spring Freamework Tutorials repo](https://github.com/jstobigdata/Spring-Framework-Tutorial)
 
